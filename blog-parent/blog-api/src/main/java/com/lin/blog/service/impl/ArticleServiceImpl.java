@@ -50,57 +50,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
-    /**
-     * 分页查询 得到limit个文章列表
-     * @param pageParams
-     * @return
-     */
-    /*
-    @Override
-    public Result listArticle(PageParams pageParams) {
-
-        Page<Article> page = new Page<>(pageParams.getPage(),pageParams.getPageSize());
-        //查询条件
-        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
-
-        //查询文章的参数 加上分类id，判断不为空 加上分类条件
-        //用于查询 文章分类时 某一类的文章
-        if (pageParams.getCategoryId() != null) {
-            queryWrapper.eq(Article::getCategoryId,pageParams.getCategoryId());
-        }
-
-        //用于 查询某一标签 的 文章
-        //加入标签条件查询
-        //article表中并没有tag字段 一篇文章有多个标签
-        //articie_tog article_id 1：n tag_id
-        //我们需要利用一个全新的属于文章标签的queryWrapper将这篇文章的article_Tag查出来，保存到一个list当中。
-        // 然后再根据queryWrapper的in方法选择我们需要的标签即可。
-        List<Long> articleIdList = new ArrayList<>();
-        if (pageParams.getTagId() != null){
-            LambdaQueryWrapper<ArticleTag> articleTagLambdaQueryWrapper = new LambdaQueryWrapper<>();
-            articleTagLambdaQueryWrapper.eq(ArticleTag::getTagId,pageParams.getTagId());
-            List<ArticleTag> articleTags = articleTagMapper.selectList(articleTagLambdaQueryWrapper);
-            for (ArticleTag articleTag : articleTags) {
-                articleIdList.add(articleTag.getArticleId());
-            }
-            if (articleIdList.size() > 0){
-                queryWrapper.in(Article::getId,articleIdList);
-            }
-
-        }
-
-        //根据置顶排序，时间排序
-        queryWrapper.orderByDesc(Article::getWeight,Article::getCreateDate);
-        Page<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
-        List<Article> records = articlePage.getRecords();
-
-        //records 不能直接返回 record是数据库中的数据
-        List<ArticleVo> articleVoList = copyList(records, true, true);
-
-
-        return Result.success(articleVoList);
-    }
-*/
 
 
     /**
